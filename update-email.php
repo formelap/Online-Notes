@@ -44,20 +44,19 @@ if($count == 1){
 // stwórz kod aktywacyjny
 $activationKey = bin2hex(random_bytes(16));
 
-// zaktualizuj kod aktywacyjny w bazie danych
-$sql = "UPDATE users SET `activation2`='$activationKey' WHERE `user_id`='$user_id'";
-
-try{
-    $result = mysqli_query($link, $sql);
-} catch(Exception $e){
-    echo "<div class='alert alert-danger'>Wystąpił błąd aktualizacji adresu email</div>";
-    exit;
-}
-
 // wyślij maila z linkiem aktywacyjnym do activate-new-email.php
 $message = "Link aktywacyjny nowego adresu email:\n\n";
 $message .= "http://localhost:4000/activate-new-email.php?email=" . urlencode($email) . "&newEmail=". urlencode($newEmail) . "&key=$activationKey";
 if(mail($newEmail, 'Potwierdzenie zmiany adresu email', $message, 'From: notatki_online@wp.pl')){
+    // zaktualizuj kod aktywacyjny w bazie danych
+    $sql = "UPDATE users SET `activation2`='$activationKey' WHERE `user_id`='$user_id'";
+
+    try{
+        $result = mysqli_query($link, $sql);
+    } catch(Exception $e){
+        echo "<div class='alert alert-danger'>Wystąpił błąd aktualizacji adresu email</div>";
+        exit;
+    }
     echo "<div class='alert alert-success'>Email z linkiem aktywacyjnym dla nowego adresu został wysłany na nowy adres email. </div>";
 } else {
     echo "<div class='alert alert-success'>Nie udało się ;( </div>";

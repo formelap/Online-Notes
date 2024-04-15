@@ -8,7 +8,7 @@ CREATE TABLE `online_notes`.`users` (
   `activation` char(32) DEFAULT NULL,
   `activation2` char(32) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `online_notes`.`notes` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -16,7 +16,7 @@ CREATE TABLE `online_notes`.`notes` (
   `note` text,
   `time` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `online_notes`.`forgotpassword` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE `online_notes`.`forgotpassword` (
   `time` int DEFAULT NULL,
   `status` varchar(7) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `online_notes`.`rememberme` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -34,4 +34,6 @@ CREATE TABLE `online_notes`.`rememberme` (
   `user_id` int NOT NULL,
   `expires` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO online_notes.users (username, email, password, activation) VALUES ('Test', 'test@test.test', '95ac6e06052a014fe26457e6008a9c2744bce00f80c545e60b8bff7bb1f24a5a', 'activated');

@@ -100,15 +100,6 @@ if($results) {
 // stwórz kod aktywacyjny
 $activationKey = bin2hex(random_bytes(16));
 
-// wstawienie danych użytkownika i kodu aktywacyjnego do bazy
-$sql = "INSERT INTO users (username, email, password, activation) VALUES ('$username', '$email', '$password', '$activationKey')";
-try{
-    $result = mysqli_query($link, $sql);
-} catch(Exception $e){
-    echo '<div class="alert alert-danger">Błąd przetwarzania danych użytkownika</div>';
-    exit;
-}
-
 // wysłanie email z linkiem aktywacyjnym
 $env = parse_ini_file('.env');
 $auth_email = $env['AUTH_EMAIL'];
@@ -117,6 +108,14 @@ $origin = $_SERVER['HTTP_ORIGIN'];
 $message = "Link aktywacyjny:\n\n";
 $message .= "$origin/activate.php?email=" . urlencode($email) . "&key=$activationKey";
 if(mail($email, 'Potwierdzenie rejestracji', $message, "From: $auth_email")){
+    // wstawienie danych użytkownika i kodu aktywacyjnego do bazy
+    $sql = "INSERT INTO users (username, email, password, activation) VALUES ('$username', '$email', '$password', '$activationKey')";
+    try{
+        $result = mysqli_query($link, $sql);
+    } catch(Exception $e){
+        echo '<div class="alert alert-danger">Błąd przetwarzania danych użytkownika</div>';
+        exit;
+    }
     echo "<div class='alert alert-success'>Dzięki za rejestrację! Email z linkiem aktywacyjnym został wysłany na Twój adres email. </div>";
 } else {
     echo "<div class='alert alert-success'>Nie udało się ;( </div>";
